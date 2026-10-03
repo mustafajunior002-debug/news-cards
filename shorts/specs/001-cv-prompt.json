@@ -1,8 +1,13 @@
 {
-  "hook1": "CV banwane ke",
-  "hook2": "paise mat do ❌",
-  "sub": "Ye AI prompt copy karo 👇",
+  "hook1": "CV banwane ke paise? 🤔",
+  "hook2": "Rs 0 😱",
+  "sub": "Ye prompt copy karo 👇",
   "tool": "ChatGPT (free) 🤖",
+  "steps": [
+    "STEP 1 · Prompt paste karo ✍️",
+    "STEP 2 · Send dabao ➤",
+    "STEP 3 · CV tayar ⚡"
+  ],
   "prompt": "Act as a professional CV writer. Make a 1-page, ATS-friendly CV for me.\nName: Ali Khan\nEducation: BA\nExperience: 2 years in sales\nSkills: communication, MS Excel",
   "reply": [
     "!ALI KHAN — Sales Executive",
@@ -15,8 +20,11 @@
     "Communication · MS Excel · Negotiation"
   ],
   "result1": "CV tayar ✅",
-  "result2": "30 second mein, bilkul free",
+  "chips": [
+    "⏱ 30 sec",
+    "💸 Rs 0"
+  ],
   "cta1": "Prompt description mein 📌",
   "cta2": "Roz 1 naya AI trick",
-  "cta3": "Follow karo 🔔"
+  "cta3": "FOLLOW karo 🔔"
 }
