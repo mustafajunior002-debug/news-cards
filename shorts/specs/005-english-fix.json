@@ -1,0 +1,42 @@
+{
+  "hook1": "English mein ghalti hoti hai? 😅",
+  "hook2": "Fix ✅",
+  "sub": "Ye prompt copy karo 👇",
+  "tool": "ChatGPT (free) 🤖",
+  "steps": [
+    "STEP 1 · Prompt paste karo ✍️",
+    "STEP 2 · Send dabao ➤",
+    "STEP 3 · English theek ⚡"
+  ],
+  "prompt": "Correct my English and explain the mistakes simply:\n\"I am working here since 2 years and he don't know about it.\"",
+  "reply": [
+    "!Correct:",
+    "\"I have been working here for 2 years, and he doesn't know about it.\"",
+    "!Mistakes:",
+    "1. Use \"have been working\" for an action that is still continuing.",
+    "2. Use \"for\" with a period of time, not \"since\".",
+    "3. Use \"doesn't\" with he/she/it."
+  ],
+  "result1": "English theek ✅",
+  "chips": [
+    "📚 Samjhaya bhi",
+    "💸 Free"
+  ],
+  "cta1": "Prompt description mein 📌",
+  "cta2": "Roz 1 naya AI trick",
+  "cta3": "FOLLOW karo 🔔",
+  "yt": {
+    "title": "Apni English ki ghaltiyan free mein theek karo ✅ ChatGPT prompt #shorts",
+    "prompt": "Correct my English and explain the mistakes simply:\n\"[Apna sentence yahan likho]\"",
+    "intro": "Apni English ki ghaltiyan theek karwao aur seekho bhi — ye prompt ChatGPT mein paste karo 👇",
+    "tags": [
+      "english speaking",
+      "english grammar",
+      "learn english",
+      "chatgpt",
+      "ai tools",
+      "chatgpt prompt",
+      "neurafy"
+    ]
+  }
+}

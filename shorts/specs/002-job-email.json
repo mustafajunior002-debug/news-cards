@@ -1,0 +1,42 @@
+{
+  "hook1": "Job ke liye email likhna mushkil? 😩",
+  "hook2": "10 sec ⚡",
+  "sub": "Ye prompt copy karo 👇",
+  "tool": "ChatGPT (free) 🤖",
+  "steps": [
+    "STEP 1 · Prompt paste karo ✍️",
+    "STEP 2 · Send dabao ➤",
+    "STEP 3 · Email tayar ⚡"
+  ],
+  "prompt": "Write a short, professional email to apply for a Sales Officer job.\nMy name: Ali Khan\nExperience: 2 years\nCV: attached\nTone: polite and confident",
+  "reply": [
+    "!Subject: Application for Sales Officer Position",
+    "Dear Hiring Manager,",
+    "I am writing to apply for the Sales Officer role. With 2 years of sales experience, I am confident I can add value to your team.",
+    "Please find my CV attached. I look forward to hearing from you.",
+    "Best regards,",
+    "Ali Khan"
+  ],
+  "result1": "Email tayar ✅",
+  "chips": [
+    "⏱ 10 sec",
+    "💸 Free"
+  ],
+  "cta1": "Prompt description mein 📌",
+  "cta2": "Roz 1 naya AI trick",
+  "cta3": "FOLLOW karo 🔔",
+  "yt": {
+    "title": "Job ke liye perfect email 10 second mein ⚡ ChatGPT prompt #shorts",
+    "prompt": "Write a short, professional email to apply for a [Job title] job.\nMy name: [Apna naam]\nExperience: [Kitna tajurba]\nCV: attached\nTone: polite and confident",
+    "intro": "Job apply karne ki professional email free mein likhwao — ye prompt ChatGPT mein paste karo 👇",
+    "tags": [
+      "job email",
+      "chatgpt",
+      "job application",
+      "email kaise likhe",
+      "ai tools",
+      "chatgpt prompt",
+      "neurafy"
+    ]
+  }
+}

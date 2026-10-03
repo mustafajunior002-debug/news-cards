@@ -1,0 +1,41 @@
+{
+  "hook1": "Interview se darr lagta hai? 😰",
+  "hook2": "Practice 💪",
+  "sub": "Ye prompt copy karo 👇",
+  "tool": "ChatGPT (free) 🤖",
+  "steps": [
+    "STEP 1 · Prompt paste karo ✍️",
+    "STEP 2 · Send dabao ➤",
+    "STEP 3 · Practice shuru ⚡"
+  ],
+  "prompt": "Act as an interviewer for a Customer Service job. Ask me 5 common interview questions one by one, and after each answer give me feedback to improve.",
+  "reply": [
+    "!Great, let's begin! 👔",
+    "Question 1: Tell me about yourself.",
+    "Please answer, and I will give you feedback before the next question.",
+    "!Tip:",
+    "Keep your answer under 1 minute and mention one real achievement."
+  ],
+  "result1": "Interview ready ✅",
+  "chips": [
+    "🎯 5 sawal",
+    "💸 Free"
+  ],
+  "cta1": "Prompt description mein 📌",
+  "cta2": "Roz 1 naya AI trick",
+  "cta3": "FOLLOW karo 🔔",
+  "yt": {
+    "title": "Interview ki free practice AI ke sath 💪 ChatGPT prompt #shorts",
+    "prompt": "Act as an interviewer for a [Job title] job. Ask me 5 common interview questions one by one, and after each answer give me feedback to improve.",
+    "intro": "Interview se pehle AI ke sath free practice karo — ye prompt ChatGPT mein paste karo 👇",
+    "tags": [
+      "interview tips",
+      "interview practice",
+      "chatgpt",
+      "job interview",
+      "ai tools",
+      "chatgpt prompt",
+      "neurafy"
+    ]
+  }
+}

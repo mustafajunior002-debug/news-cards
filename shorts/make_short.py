@@ -94,6 +94,7 @@ function scene(el,t,a,b){const o=Math.min(clamp((t-a)/0.22),clamp((b-t)/0.22));e
 function reply(m){let out=[],left=m;for(const raw of S.reply){if(left<=0)break;const bold=raw.startsWith('!');const line=bold?raw.slice(1):raw;
  const part=esc(line.slice(0,left));left-=line.length+1;out.push(bold?`<b>${part}</b>`:part)}return out.join('\n')}
 window.setup=function(spec){S=spec;$('h1').textContent=S.hook1;$('h2').textContent=S.hook2;$('sub').textContent=S.sub;
+ const L=[...S.hook2].length;$('h2').style.fontSize=(L<=6?230:Math.max(120,Math.floor(1400/L)))+'px';
  $('tool').textContent=S.tool;$('r1').textContent=S.result1;
  $('chips').innerHTML=S.chips.map((c,i)=>`<div class="chip" id="chip${i}">${esc(c)}</div>`).join('');
  $('c1').textContent=S.cta1;$('c2').textContent=S.cta2;$('c3').textContent=S.cta3;
