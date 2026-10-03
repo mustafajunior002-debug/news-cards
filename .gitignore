@@ -2,3 +2,4 @@ __pycache__/
 *.pyc
 shorts/out/*.jpg
 shorts/out/*.wav
+shorts/out/*.post.json
