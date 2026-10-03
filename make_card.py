@@ -45,6 +45,9 @@ body {{
 .tag {{ background:#e11d2e; color:#fff; font-family:'Naskh'; font-weight:700; font-size:40px;
         padding:10px 34px 18px; border-radius:14px; }}
 .cat {{ color:#9fb3c8; font-size:34px; font-weight:600; }}
+.items {{ list-style:none; padding-top:26px; display:flex; flex-direction:column; gap:14px; }}
+.items li {{ font-family:'Naskh'; font-size:{isize}px; line-height:1.6; color:#e6edf4; position:relative; padding-right:34px; }}
+.items li::before {{ content:''; position:absolute; right:0; top:0.62em; width:14px; height:14px; border-radius:50%; background:#e11d2e; }}
 .flagbar {{ height:10px; margin:30px 72px 0; border-radius:6px;
             background:linear-gradient(to left, #01411c 0 75%, #ffffff 75% 100%); }}
 .main {{ flex:1; display:flex; flex-direction:column; justify-content:center; padding:10px 72px 30px; overflow:hidden; }}
@@ -57,10 +60,10 @@ body {{
 .foot b {{ color:#ffffff; font-weight:700; }}
 </style></head>
 <body>
-  <div class="top"><div class="tags"><div class="tag">تازہ خبر</div><div class="cat">{category}</div></div>{me}</div>
+  <div class="top"><div class="tags"><div class="tag">{label}</div><div class="cat">{category}</div></div>{me}</div>
   <div class="flagbar"></div>
   <div class="main"><div class="headline">{headline}</div>
-  <div class="summary">{summary}</div></div>
+  {body}</div>
   <div class="foot"><div>ذریعہ: <b>{source}</b></div><div>{date}</div></div>
 </body></html>"""
 
@@ -80,12 +83,19 @@ def me_block():
     return f'<div class="me"><img src="{AVATAR.as_uri()}" alt="">{name}</div>'
 
 
-def render(headline, summary, source, date, category, out):
+def render(headline, summary, source, date, category, out, label="تازہ خبر", items=None):
     hsize, ssize = sizes(headline, summary)
+    if items:
+        n = sum(len(i) for i in items)
+        isize = 36 if n <= 320 else 32 if n <= 440 else 29
+        body = '<ul class="items">' + "".join(f"<li><span>{html.escape(i)}</span></li>" for i in items) + "</ul>"
+    else:
+        isize = 36
+        body = f'<div class="summary">{html.escape(summary)}</div>'
     page_html = TEMPLATE.format(
         nastaliq=(FONTS / "NotoNastaliqUrdu.ttf").as_uri(),
         naskh=(FONTS / "NotoNaskhArabic.ttf").as_uri(),
-        headline=html.escape(headline), summary=html.escape(summary),
+        headline=html.escape(headline), body=body, label=html.escape(label), isize=isize,
         source=html.escape(source), date=html.escape(date),
         category=html.escape(category), hsize=hsize, ssize=ssize, me=me_block(),
     )
@@ -113,11 +123,16 @@ def render(headline, summary, source, date, category, out):
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
     ap.add_argument("--headline", required=True)
-    ap.add_argument("--summary", required=True)
+    ap.add_argument("--summary", default="", help="1-2 short sentences (normal news card)")
+    ap.add_argument("--items", default="", help="roundup card: short Urdu lines separated by |")
+    ap.add_argument("--label", default="تازہ خبر", help='top red label, e.g. "بریکنگ نیوز" for big news')
     ap.add_argument("--source", required=True)
     ap.add_argument("--date", required=True)
     ap.add_argument("--category", default="پاکستان")
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
-    ok = render(a.headline, a.summary, a.source, a.date, a.category, a.out)
+    items = [i.strip() for i in a.items.split("|") if i.strip()]
+    if not items and not a.summary:
+        ap.error("give --summary or --items")
+    ok = render(a.headline, a.summary, a.source, a.date, a.category, a.out, label=a.label, items=items)
     print(("OK " if ok else "OVERFLOW (shorten text) ") + a.out)
