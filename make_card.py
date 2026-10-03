@@ -19,6 +19,8 @@ from playwright.sync_api import sync_playwright
 
 HERE = pathlib.Path(__file__).resolve().parent
 FONTS = HERE / "fonts"
+AVATAR = HERE / "assets" / "avatar.jpg"   # round photo in the top-left corner
+NAME = "Mustafa Khan"                      # name shown under the photo
 
 TEMPLATE = """<!doctype html>
 <html lang="ur" dir="rtl"><head><meta charset="utf-8">
@@ -33,11 +35,17 @@ body {{
                     radial-gradient(circle at 10% 95%, #0f5132 0%, rgba(11,26,46,0) 50%);
   color:#f5f7fa; font-family:'Naskh', serif; display:flex; flex-direction:column; overflow:hidden;
 }}
-.top {{ display:flex; justify-content:space-between; align-items:center; padding:64px 72px 0; }}
+.top {{ display:flex; justify-content:space-between; align-items:center; padding:52px 72px 0; }}
+.tags {{ display:flex; align-items:center; gap:28px; }}
+.me {{ display:flex; flex-direction:column; align-items:center; gap:10px; }}
+.me img {{ width:132px; height:132px; border-radius:50%; object-fit:cover;
+           border:5px solid #ffffff; box-shadow:0 6px 20px rgba(0,0,0,0.45); }}
+.me .name {{ direction:ltr; font-family:'Inter','DejaVu Sans',Arial,sans-serif; font-weight:700;
+             font-size:26px; color:#ffffff; letter-spacing:0.3px; }}
 .tag {{ background:#e11d2e; color:#fff; font-family:'Naskh'; font-weight:700; font-size:40px;
         padding:10px 34px 18px; border-radius:14px; }}
 .cat {{ color:#9fb3c8; font-size:34px; font-weight:600; }}
-.flagbar {{ height:10px; margin:44px 72px 0; border-radius:6px;
+.flagbar {{ height:10px; margin:30px 72px 0; border-radius:6px;
             background:linear-gradient(to left, #01411c 0 75%, #ffffff 75% 100%); }}
 .main {{ flex:1; display:flex; flex-direction:column; justify-content:center; padding:10px 72px 30px; overflow:hidden; }}
 .headline {{ font-family:'Nastaliq'; font-weight:700; font-size:{hsize}px; line-height:2.05; color:#ffffff; }}
@@ -49,7 +57,7 @@ body {{
 .foot b {{ color:#ffffff; font-weight:700; }}
 </style></head>
 <body>
-  <div class="top"><div class="tag">تازہ خبر</div><div class="cat">{category}</div></div>
+  <div class="top"><div class="tags"><div class="tag">تازہ خبر</div><div class="cat">{category}</div></div>{me}</div>
   <div class="flagbar"></div>
   <div class="main"><div class="headline">{headline}</div>
   <div class="summary">{summary}</div></div>
@@ -65,6 +73,13 @@ def sizes(headline: str, summary: str):
     return hsize, ssize
 
 
+def me_block():
+    if not AVATAR.exists():
+        return ""
+    name = f'<div class="name">{html.escape(NAME)}</div>' if NAME else ""
+    return f'<div class="me"><img src="{AVATAR.as_uri()}" alt="">{name}</div>'
+
+
 def render(headline, summary, source, date, category, out):
     hsize, ssize = sizes(headline, summary)
     page_html = TEMPLATE.format(
@@ -72,7 +87,7 @@ def render(headline, summary, source, date, category, out):
         naskh=(FONTS / "NotoNaskhArabic.ttf").as_uri(),
         headline=html.escape(headline), summary=html.escape(summary),
         source=html.escape(source), date=html.escape(date),
-        category=html.escape(category), hsize=hsize, ssize=ssize,
+        category=html.escape(category), hsize=hsize, ssize=ssize, me=me_block(),
     )
     tmp = pathlib.Path(out).with_suffix(".html")
     tmp.write_text(page_html, encoding="utf-8")
