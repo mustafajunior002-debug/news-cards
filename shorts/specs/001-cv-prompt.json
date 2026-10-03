@@ -1,0 +1,22 @@
+{
+  "hook1": "CV banwane ke",
+  "hook2": "paise mat do ❌",
+  "sub": "Ye AI prompt copy karo 👇",
+  "tool": "ChatGPT (free) 🤖",
+  "prompt": "Act as a professional CV writer. Make a 1-page, ATS-friendly CV for me.\nName: Ali Khan\nEducation: BA\nExperience: 2 years in sales\nSkills: communication, MS Excel",
+  "reply": [
+    "!ALI KHAN — Sales Executive",
+    "[Phone] · [Email] · Lahore",
+    "!Professional Summary",
+    "Results-driven sales professional with 2 years of experience in meeting targets and building customer trust.",
+    "!Experience",
+    "Sales Executive — 2 years",
+    "!Skills",
+    "Communication · MS Excel · Negotiation"
+  ],
+  "result1": "CV tayar ✅",
+  "result2": "30 second mein, bilkul free",
+  "cta1": "Prompt description mein 📌",
+  "cta2": "Roz 1 naya AI trick",
+  "cta3": "Follow karo 🔔"
+}

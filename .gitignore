@@ -1,2 +1,4 @@
 __pycache__/
 *.pyc
+shorts/out/*.jpg
+shorts/out/*.wav
