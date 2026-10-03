@@ -9,6 +9,9 @@ synthesized, so no music licence is needed.
 
 Usage:
   python3 make_short.py spec.json out.mp4 [--preview preview.jpg]
+      [--avatar photo.jpg --name "Mustafa Khan"] [--cta1 "Prompt caption mein 📌"]
+  With --avatar the round photo + name replace the NEURAFY label (TikTok version)
+  and a large photo appears on the follow screen.
 
 Spec keys: hook1, hook2 (big stamp), sub, tool, prompt, reply (list of lines;
 a line starting with "!" is drawn bold/yellow), steps (3 labels), result1,
@@ -70,6 +73,10 @@ body{background:#07051a;font-family:'Inter','Noto Color Emoji',sans-serif;color:
  box-shadow:0 12px 40px rgba(239,68,68,.5)}
 .cf{position:absolute;width:18px;height:30px;border-radius:4px}
 #flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+#mebadge{position:absolute;top:190px;left:46px;display:none;flex-direction:column;align-items:center;gap:8px}
+#mebadge img{width:124px;height:124px;border-radius:50%;object-fit:cover;border:5px solid #fff;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+#mebadge div{font:700 28px 'Inter';color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+#ctaimg{display:none;width:270px;height:270px;border-radius:50%;object-fit:cover;border:8px solid #fde047;box-shadow:0 0 60px rgba(253,224,71,.45);margin-bottom:46px}
 </style></head><body>
 <div id="bg"><div class="blob b1" id="b1"></div><div class="blob b2" id="b2"></div><div class="blob b3" id="b3"></div><div id="grid"></div></div>
 <div id="prog"><div id="bar"></div></div><div class="brand">NEURAFY</div>
@@ -80,7 +87,8 @@ body{background:#07051a;font-family:'Inter','Noto Color Emoji',sans-serif;color:
  <div class="label" style="margin-top:26px">AI</div><div class="msg ai" id="ai"></div></div></div></div>
 <div id="s3" class="scene"><div class="big" id="r1"></div><div class="chips" id="chips"></div></div>
 <div id="conf"></div>
-<div id="s4" class="scene"><div class="mid" id="c1"></div><div class="big yel" id="c2" style="margin-top:40px;font-size:98px"></div><div class="follow" id="c3"></div></div>
+<div id="s4" class="scene"><img id="ctaimg" alt=""><div class="mid" id="c1"></div><div class="big yel" id="c2" style="margin-top:40px;font-size:98px"></div><div class="follow" id="c3"></div></div>
+<div id="mebadge"><img id="meimg" alt=""><div id="mename"></div></div>
 <div id="flash"></div>
 <script>
 let S, DOTS=[], CONF=[];
@@ -94,6 +102,7 @@ function scene(el,t,a,b){const o=Math.min(clamp((t-a)/0.22),clamp((b-t)/0.22));e
 function reply(m){let out=[],left=m;for(const raw of S.reply){if(left<=0)break;const bold=raw.startsWith('!');const line=bold?raw.slice(1):raw;
  const part=esc(line.slice(0,left));left-=line.length+1;out.push(bold?`<b>${part}</b>`:part)}return out.join('\n')}
 window.setup=function(spec){S=spec;$('h1').textContent=S.hook1;$('h2').textContent=S.hook2;$('sub').textContent=S.sub;
+ if(S.avatar){$('meimg').src=S.avatar;$('ctaimg').src=S.avatar;$('mebadge').style.display='flex';$('ctaimg').style.display='block';$('mename').textContent=S.name||'';document.querySelector('.brand').style.display='none'}
  const L=[...S.hook2].length;$('h2').style.fontSize=(L<=6?230:Math.max(120,Math.floor(1400/L)))+'px';
  $('tool').textContent=S.tool;$('r1').textContent=S.result1;
  $('chips').innerHTML=S.chips.map((c,i)=>`<div class="chip" id="chip${i}">${esc(c)}</div>`).join('');
@@ -141,7 +150,7 @@ window.render=function(t){const T=S.T;
   const y=-60+c.vy*dt+380*dt*dt,x=c.x+c.vx*dt;c.el.style.opacity=clamp((T.cta+0.3-t)/0.4);
   c.el.style.transform=`translate(${x}px,${y}px) rotate(${c.r+c.vr*dt}deg)`}
  // CTA
- scene($('s4'),t,T.cta,T.end+1);pop($('c1'),t,T.cta+0.08);pop($('c2'),t,T.cta+0.45);
+ scene($('s4'),t,T.cta,T.end+1);if(S.avatar)pop($('ctaimg'),t,T.cta+0.02,0.3);pop($('c1'),t,T.cta+0.08);pop($('c2'),t,T.cta+0.45);
  const f=$('c3');pop(f,t,T.cta+0.9,0.4);if(t>T.cta+1.2)f.style.transform=`scale(${1+0.06*Math.sin((t-T.cta)*7)})`;
  // flashes
  let fl=0;for(const [a,s] of [[T.stamp,0.55],[T.result,0.35]]){if(t>=a)fl=Math.max(fl,s*Math.exp(-(t-a)*9))}$('flash').style.opacity=fl}
@@ -287,5 +296,14 @@ if __name__ == "__main__":
         prev = args[i + 1]
         del args[i:i + 2]
     spec = json.loads(pathlib.Path(args[0]).read_text(encoding="utf-8"))
+    for flag in ("--avatar", "--name", "--cta1"):
+        if flag in args:
+            i = args.index(flag)
+            val = args[i + 1]
+            del args[i:i + 2]
+            if flag == "--avatar":
+                import base64
+                val = "data:image/jpeg;base64," + base64.b64encode(pathlib.Path(val).read_bytes()).decode()
+            spec[flag[2:]] = val
     T = make(spec, args[1], prev)
     print(f"OK {args[1]} ({T['end']:.1f}s)")
